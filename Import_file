@@ -1,0 +1,19 @@
+# the script reads all the files in the folder, stacks thems and then can be exported.
+
+# set the working folder with files in it; note the forward / sign.
+
+
+filenames = list.files()
+
+final = do.call("rbind", lapply(filenames, read.csv, header = TRUE))
+
+
+write.csv(final,"C:/Users/Pascalv/Desktop/Quartely2011.csv")# export 
+
+
+#################################
+# reads data
+d = NULL
+for (csv in dir(pattern = "\\.csv$",full.names=TRUE,recursive=TRUE)){
+  d = rbind(d, read.table(csv)) # read.csv will aslo work.
+}
