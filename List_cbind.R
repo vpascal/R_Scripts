@@ -1,17 +1,17 @@
+# binding a list of files of different sizes
+
+
 library(readr)
 library(purrr)
 library(dplyr)
 
-
 files <- dir(pattern = "csv")
 info <-  file.info(files)
-empty <-  rownames(info[info$size == 0, ])
-non_empty <- rownames(info[info$size > 0, ])
+empty <-  rownames(info[info$size == 0,])
+non_empty <- rownames(info[info$size > 0,])
 
-
-mylist <- map(non_empty,read_csv)
+mylist <- map(non_empty, read_csv)
 names(mylist) <- non_empty
-
 
 max.rows <- max(unlist(lapply(mylist, nrow), use.names = F))
 
@@ -29,5 +29,5 @@ list.df <- lapply(mylist, function(x) {
 temp <- bind_cols(list.df)
 names(temp) <- non_empty
 
-openxlsx::write.xlsx(temp,"final.xlsx")
-write.table(empty,file="clipboard")
+openxlsx::write.xlsx(temp, "final.xlsx")
+write.table(empty, file = "clipboard")
