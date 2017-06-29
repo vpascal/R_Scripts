@@ -3,7 +3,7 @@
 library(purrr)
 library(readr)
 
-extract_files <- function(x) {
+extract_files <- function(x, text=FALSE) {
   temp <- map(.f = unzip, .x = x, list = TRUE)
   files <- vector()
   
@@ -24,8 +24,17 @@ extract_files <- function(x) {
   final_files <- dir(path = "temp/",
                      pattern = "csv",
                      full.names = T)
-  temp <- map_df(.x = final_files, .f = read_csv)
-  temp
+  
+  if (text == TRUE){
+    
+ 
+  map_df(.x = final_files,.f = read_csv, col_types = cols(.default = "c"))
+  
+  
+  } else{
+    
+   map_df(.x = final_files, .f = read_csv)
+  }
   
   
 }
