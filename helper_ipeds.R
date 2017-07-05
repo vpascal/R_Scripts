@@ -27,13 +27,13 @@ extract_files <- function(x, text=FALSE) {
   
   if (text == TRUE){
     
- 
-  map_df(.x = final_files,.f = read_csv, col_types = cols(.default = "c"))
-  
+   temp1 <-   map(.x = final_files,.f = read_csv, col_types = cols(.default = "c"))
+   map2_df(temp1, final_files, function(x, y) cbind(x, "file_name" = y))
   
   } else{
     
-   map_df(.x = final_files, .f = read_csv)
+   temp1 <- map(.x = final_files, .f = read_csv)
+   map2_df(temp1, final_files, function(x, y) cbind(x, "file_name" = y))
   }
   
   
