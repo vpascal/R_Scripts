@@ -34,7 +34,19 @@ pattern <- grep("Dict|SAS|DIST",ignore.case = T,x = files)
 files <- files[-pattern]
 
 C_C <- extract_files(files)
+unlink("temp",recursive = TRUE)
+
+
+# EDxxxxA_DIST --------------------------------------------------------------------------------
+
+files <- dir(pattern = "EF\\d{4}A_DIST",recursive = TRUE)
+pattern <- grep("Dict|SAS",ignore.case = T,x = files)
+
+files <- files[-pattern]
+
+EFA_DIST <- extract_files(files)
 unlink("temp",recursive =TRUE)
+
 
 # EFxxxxA -------------------------------------------------------------------------------------
 
